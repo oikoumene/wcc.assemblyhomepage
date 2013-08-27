@@ -5,6 +5,36 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="wcc.assemblyhomepage">
+      <head>
+          <metal:slot fill-slot="javascript_head_slot">
+              <script>
+            $(document).ready(function () {
+                $('.assemblyhomepage-slider').unslider({
+                        'dots': true
+                })
+            })
+            </script>
+        </metal:slot>
+        <metal:slot fill-slot="style_slot">
+            <style>
+            .assemblyhomepage-slider .slider-background {
+                background: url('++resource++wcc.assemblyhomepage/sliderbg.png') no-repeat right;
+                width:462px;
+                height:210px;
+                margin:0px;
+            }
+            .assemblyhomepage-slider .slider-background .text-wrapper {
+                margin-top:10px;
+                width:200px;
+                padding-right:10px
+            }
+            .assemblyhomepage-slider .slider-background .text-wrapper h3 {
+                font-size: 18px;
+
+            }
+            </style>
+        </metal:slot>
+      </head>
 <body>
 
 <tal:comment tal:condition="nothing">
@@ -16,26 +46,25 @@
 </tal:comment>
 
 <metal:main fill-slot="content-core">
-  <metal:content-core define-macro="content-core">
+    <metal:content-core define-macro="content-core">
 
-    <tal:block repeat="widget view/widgets/values">
-        <div class="field" tal:condition="python:widget.__name__ not in ('IDublinCore.title', 'IDublinCore.description', 'title', 'description',)">
-            <label tal:content="widget/label" />
-            <br />
-            <div tal:content="structure widget/render" />
-        </div>
-    </tal:block>
+    <div class="assemblyhomepage-slider unslider">
+        <ul style="margin:0">
+            <li class="unslider-slide"
+                tal:repeat="item view/slider_items"
+                tal:attributes="style item/slide_css">
 
-    <fieldset tal:repeat="group view/groups"
-              tal:attributes="id python:''.join((group.prefix, 'groups.', group.__name__)).replace('.', '-')">
-        <legend tal:content="group/label" />
-        <div class="field" tal:repeat="widget group/widgets/values">
-            <label tal:content="widget/label" />
-            <br />
-            <div tal:content="structure widget/render" />
-        </div>
-    </fieldset>
-
+<a style="display:block;" tal:attributes="href item/url">
+         <div class="slider-background">
+            <div class="text-wrapper">
+            <h3 tal:content="item/title">Pilgrimage to Busan</h3>
+            <p tal:content="item/description"></p>
+            </div>
+         </div>
+</a>
+            </li>
+        </ul>
+    </div>
 
   </metal:content-core>
 </metal:main>

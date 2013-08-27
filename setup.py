@@ -34,6 +34,7 @@ setup(name='wcc.assemblyhomepage',
           'plone.app.multilingual',
           'plone.multilingualbehavior',
           'plone.app.versioningbehavior',
+          'collective.js.unslider',
           # -*- Extra requirements: -*-
       ],
       extras_require={
