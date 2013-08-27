@@ -63,14 +63,10 @@ class IHomepage(form.Schema, IImageScaleTraversable):
         required=False,
     )
 
-    languageindependent('show_video')
-    show_video = schema.Bool(
-        title=u'Show video instead of slider',
-    )
-
     languageindependent('video_url')
     video_url = schema.TextLine(
-        title=u'Video URL',
+        title=u'Youtube URL to video',
+        description=u'If set, This will replace the slider',
         required=False
     )
 

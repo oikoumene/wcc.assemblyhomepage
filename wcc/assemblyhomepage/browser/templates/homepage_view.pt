@@ -25,7 +25,7 @@
             }
             .assemblyhomepage-slider .slider-background .text-wrapper {
                 margin-top:10px;
-                width:200px;
+                width:180px;
                 padding-right:10px
             }
             .assemblyhomepage-slider .slider-background .text-wrapper h3 {
@@ -48,7 +48,7 @@
 <metal:main fill-slot="content-core">
     <metal:content-core define-macro="content-core">
 
-    <div class="assemblyhomepage-slider unslider">
+        <div class="assemblyhomepage-slider unslider" tal:condition="not:context/video_url">
         <ul style="margin:0">
             <li class="unslider-slide"
                 tal:repeat="item view/slider_items"
@@ -64,6 +64,12 @@
 </a>
             </li>
         </ul>
+    </div>
+
+    <div tal:condition="context/video_url">
+        <iframe width="462" height="350" tal:attributes="src view/embed_url"
+            frameborder="0" allowfullscreen>
+        </iframe>
     </div>
 
   </metal:content-core>

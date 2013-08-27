@@ -1,6 +1,7 @@
 from five import grok
 from plone.directives import dexterity, form
 from wcc.assemblyhomepage.content.homepage import IHomepage
+import urlparse
 
 grok.templatedir('templates')
 
@@ -54,4 +55,12 @@ class Index(dexterity.DisplayForm):
                     )
             })
         return data
+
+    def embed_url(self):
+        if self.context.video_url:
+            qs = urlparse.urlparse(self.context.video_url).query
+            v_param = urlparse.parse_qs(qs).get('v', None)
+            if v_param:
+                return 'http://www.youtube.com/embed/%s' % v_param[0]
+        return ''
 
