@@ -64,3 +64,17 @@ class Index(dexterity.DisplayForm):
                 return 'http://www.youtube.com/embed/%s' % v_param[0]
         return ''
 
+
+    def news_items(self):
+        rel = self.context.news_source
+        if not rel:
+            return []
+        source = rel.to_object
+        results = source.queryCatalog(batch=False) or []
+        return [i.getObject() for i in results[:3]]
+
+    def more_news_target(self):
+        if self.context.more_news_target:
+            return self.context.more_news_target.to_object
+        return self.context.news_source.to_object
+

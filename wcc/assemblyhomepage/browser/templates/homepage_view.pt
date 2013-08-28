@@ -32,6 +32,12 @@
                 font-size: 18px;
 
             }
+            .assemblyhomepage-newslisting {
+                margin-top:20px;
+            }
+            .assemblyhomepage-morenews {
+                text-align:right;
+            }
             </style>
         </metal:slot>
       </head>
@@ -45,9 +51,13 @@
     if needed.
 </tal:comment>
 
+<metal:main fill-slot="content-description">
+    <div tal:content="context/Description"></div>
+</metal:main>
+
 <metal:main fill-slot="content-core">
     <metal:content-core define-macro="content-core">
-
+        <div>&nbsp;</div>
         <div class="assemblyhomepage-slider unslider" tal:condition="not:context/video_url">
         <ul style="margin:0">
             <li class="unslider-slide"
@@ -70,6 +80,22 @@
         <iframe width="462" height="350" tal:attributes="src view/embed_url"
             frameborder="0" allowfullscreen>
         </iframe>
+    </div>
+
+    <div class="assemblyhomepage-newslisting">
+        <h1>Latest News</h1>
+        <tal:r repeat="item view/news_items">
+            <h2><a tal:attributes="href item/absolute_url"
+                    tal:content="item/Title"></a></h2>
+        </tal:r>
+    </div>
+
+    <div class="assemblyhomepage-morenews" 
+        tal:define="more_news_target view/more_news_target"
+        tal:condition="more_news_target">
+        <a tal:attributes="href more_news_target/absolute_url">
+            More News
+        </a>
     </div>
 
   </metal:content-core>
