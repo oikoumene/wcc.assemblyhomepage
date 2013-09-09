@@ -59,7 +59,7 @@
     <metal:content-core define-macro="content-core">
         <div>&nbsp;</div>
         <div class="assemblyhomepage-slider unslider" tal:condition="not:context/video_url">
-        <ul style="margin:0">
+        <ul style="margin:0;list-style:none">
             <li class="unslider-slide"
                 tal:repeat="item view/slider_items"
                 tal:attributes="style item/slide_css">
