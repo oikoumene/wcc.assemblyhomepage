@@ -77,6 +77,10 @@
     if needed.
 </tal:comment>
 
+<metal:main fill-slot="content-title">
+    <h1 tal:content="context/Title"></h1>
+</metal:main>
+
 <metal:main fill-slot="content-description">
     <div tal:content="context/Description"></div>
 </metal:main>
