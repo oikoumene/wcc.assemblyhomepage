@@ -115,8 +115,8 @@
     <div class="assemblyhomepage-newslisting">
         <h1>Latest News</h1>
         <tal:r repeat="item view/news_items">
-            <h2><a tal:attributes="href item/absolute_url"
-                    tal:content="item/Title"></a></h2>
+            <h3><a tal:attributes="href item/absolute_url"
+                    tal:content="item/Title"></a></h3>
         </tal:r>
     </div>
 

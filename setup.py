@@ -35,6 +35,7 @@ setup(name='wcc.assemblyhomepage',
           'plone.multilingualbehavior',
           'plone.app.versioningbehavior',
           'collective.js.unslider',
+          'collective.sliderfields',
           # -*- Extra requirements: -*-
       ],
       extras_require={

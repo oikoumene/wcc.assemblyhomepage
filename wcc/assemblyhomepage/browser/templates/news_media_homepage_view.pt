@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="wcc.assemblyhomepage">
+<body>
+
+<tal:comment tal:condition="nothing">
+    This is a sample view template. It will not be used for rendering the
+    content unless activated by creation of a view class with a matching name.
+    
+    Note that we're using Plone 4 macros. Replace them with Plone 3 macros
+    if needed.
+</tal:comment>
+
+<metal:main fill-slot="content-core">
+  <metal:content-core define-macro="content-core">
+
+
+    <div tal:content="structure context/text"></div>
+
+    <tal:block define="global first python:True"/>
+    <div class="assemblyhomepage-newslisting">
+        <tal:r repeat="item view/news_items">
+
+            <div tal:condition="first">
+                <h2><a tal:attributes="href item/absolute_url"
+                    tal:content="item/Title"></a></h2>
+
+                <div style="float:left;width:50%">
+                    <img tal:define="scales nocall:item/@@featureimages;"
+                        tal:replace="structure python:scales.tag(scale='mini')"/>
+                </div>
+
+                <div style="float:left;width:50%" tal:content="item/Description">
+                    
+                </div>
+
+                <div class="visualClear"></div>
+
+            </div>
+            <div tal:condition="not:first">
+                <h3><a tal:attributes="href item/absolute_url"
+                    tal:content="item/Title"></a></h3>
+            </div>
+            <tal:block define="global first python:False"/>
+        </tal:r>
+    </div>
+
+    <div class="assemblyhomepage-morenews" 
+        tal:define="more_news_target view/more_news_target"
+        tal:condition="more_news_target">
+        <a tal:attributes="href more_news_target/absolute_url">
+            More News
+        </a>
+    </div>
+
+  </metal:content-core>
+</metal:main>
+
+</body>
+</html>
+
