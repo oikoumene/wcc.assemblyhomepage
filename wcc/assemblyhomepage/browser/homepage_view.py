@@ -71,7 +71,7 @@ class Index(dexterity.DisplayForm):
             return []
         source = rel.to_object
         results = source.queryCatalog(batch=False) or []
-        return [i.getObject() for i in results[:3]]
+        return [i.getObject() for i in results[:5]]
 
     def more_news_target(self):
         if self.context.more_news_target:

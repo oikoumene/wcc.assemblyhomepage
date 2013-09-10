@@ -5,15 +5,15 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="wcc.assemblyhomepage">
-<body>
 
-<tal:comment tal:condition="nothing">
-    This is a sample view template. It will not be used for rendering the
-    content unless activated by creation of a view class with a matching name.
-    
-    Note that we're using Plone 4 macros. Replace them with Plone 3 macros
-    if needed.
-</tal:comment>
+      <metal:slot fill-slot="style_slot">
+        <style>
+            .assemblyhomepage-morenews {
+                            text-align:right;
+            }
+        </style>
+      </metal:slot>
+<body>
 
 <metal:main fill-slot="content-core">
   <metal:content-core define-macro="content-core">
@@ -29,16 +29,18 @@
                 <h2><a tal:attributes="href item/absolute_url"
                     tal:content="item/Title"></a></h2>
 
-                <div style="float:left;width:50%">
-                    <img tal:define="scales nocall:item/@@featureimages;"
-                        tal:replace="structure python:scales.tag(scale='mini')"/>
-                </div>
 
-                <div style="float:left;width:50%" tal:content="item/Description">
-                    
-                </div>
+                <table>
+                    <tr>
+                        <td style="width:200px;padding:5px">
+                        <img tal:define="scales nocall:item/@@featureimages;"
+                            tal:replace="structure python:scales.tag(scale='mini')"/>
+                    </td>
+                    <td style="padding:5px;" tal:content="item/Description">
 
-                <div class="visualClear"></div>
+                    </td>
+                    </tr>
+                </table>
 
             </div>
             <div tal:condition="not:first">
