@@ -58,10 +58,15 @@ class Index(dexterity.DisplayForm):
 
     def embed_url(self):
         if self.context.video_url:
-            qs = urlparse.urlparse(self.context.video_url).query
+            p = urlparse.urlparse(self.context.video_url)
+            qs = p.query
             v_param = urlparse.parse_qs(qs).get('v', None)
+            vid = None
             if v_param:
-                return 'http://www.youtube.com/embed/%s' % v_param[0]
+                vid = v_param[0]
+            if 'youtu.be' == p.netloc:
+                vid = p.path[1:]
+            return 'http://www.youtube.com/embed/%s' % vid
         return ''
 
 
