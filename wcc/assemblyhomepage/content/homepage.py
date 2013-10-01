@@ -70,4 +70,10 @@ class IHomepage(form.Schema, IImageScaleTraversable):
         required=False
     )
 
-    
+    languageindependent('embed_html')
+    embed_html = schema.Text(
+        title=u'Embed HTML',
+        description=u'If set, this will replace the slider/youtube video',
+        required=False
+    )
+

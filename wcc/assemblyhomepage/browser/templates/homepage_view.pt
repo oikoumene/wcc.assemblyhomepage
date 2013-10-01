@@ -86,11 +86,13 @@
 </metal:main>
 
 <metal:main fill-slot="content-core">
-    <metal:content-core define-macro="content-core">
+    <metal:content-core define-macro="content-core"
+                    tal:define="display_mode view/display_mode">
         <div>&nbsp;</div>
 
-        <div style="width:462px;margin:0 auto;">
-            <div class="assemblyhomepage-slider unslider" tal:condition="not:context/video_url">
+        <div style="width:462px;margin:0 auto;"
+             tal:condition="python:display_mode == 'slider'">
+            <div class="assemblyhomepage-slider unslider">
                 <ul style="margin:0;list-style:none">
                     <li class="unslider-slide"
                         tal:repeat="item view/slider_items"
@@ -109,10 +111,14 @@
             </div>
         </div>
 
-    <div tal:condition="context/video_url">
+    <div tal:condition="python:display_mode == 'video'">
         <iframe width="462" height="350" tal:attributes="src view/embed_url"
             frameborder="0" allowfullscreen>
         </iframe>
+    </div>
+
+    <div tal:condition="python:display_mode == 'html'"
+        tal:content="structure context/embed_html">
     </div>
 
     <div class="assemblyhomepage-newslisting">
