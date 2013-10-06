@@ -111,10 +111,8 @@
             </div>
         </div>
 
-    <div tal:condition="python:display_mode == 'video'">
-        <iframe width="462" height="350" tal:attributes="src view/embed_url"
-            frameborder="0" allowfullscreen>
-        </iframe>
+    <div tal:condition="python:display_mode == 'video'"
+        tal:content="structure view/player_html">
     </div>
 
     <div tal:condition="python:display_mode == 'html'"

@@ -2,6 +2,10 @@ from five import grok
 from plone.directives import dexterity, form
 from wcc.assemblyhomepage.content.homepage import IHomepage
 import urlparse
+from redturtle.video.interfaces import (
+    IRTVideo, IRTInternalVideo,
+    IRTRemoteVideo
+)
 
 grok.templatedir('templates')
 
@@ -56,18 +60,32 @@ class Index(dexterity.DisplayForm):
             })
         return data
 
-    def embed_url(self):
-        if self.context.video_url:
-            p = urlparse.urlparse(self.context.video_url)
-            qs = p.query
-            v_param = urlparse.parse_qs(qs).get('v', None)
-            vid = None
-            if v_param:
-                vid = v_param[0]
-            if 'youtu.be' == p.netloc:
-                vid = p.path[1:]
-            return 'http://www.youtube.com/embed/%s' % vid
-        return ''
+    def player_code(self, item):
+        if not item:
+            return u''
+
+        if IRTInternalVideo.providedBy(item):
+            view = item.unrestrictedTraverse('@@flowplayer')
+            return view.getEmbedCode()
+
+        if IRTRemoteVideo.providedBy(item):
+            view = item.unrestrictedTraverse('@@flowplayer')
+            return view.getPlayerCode()
+
+        return u''
+
+    def player_html(self):
+        return self.player_code(self.latest_video())
+
+    def latest_video(self):
+        rel = self.context.video_source
+        if not rel:
+            return None
+        source = rel.to_object
+        results = source.queryCatalog(batch=False) or []
+        if results:
+            return results[0].getObject()
+        return None
 
 
     def news_items(self):
@@ -84,7 +102,7 @@ class Index(dexterity.DisplayForm):
         return self.context.news_source.to_object
 
     def display_mode(self):
-        if self.context.video_url and not self.context.embed_html:
+        if self.context.video_source and not self.context.embed_html:
             return 'video'
         if self.context.embed_html:
             return 'html'

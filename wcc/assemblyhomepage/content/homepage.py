@@ -63,10 +63,13 @@ class IHomepage(form.Schema, IImageScaleTraversable):
         required=False,
     )
 
-    languageindependent('video_url')
-    video_url = schema.TextLine(
-        title=u'Youtube URL to video',
-        description=u'If set, This will replace the slider',
+    languageindependent('video_source')
+    video_source = RelationChoice(
+        title=u'Source collection for latest video',
+        source=ObjPathSourceBinder(
+            object_provides=[IATTopic.__identifier__,
+                            ICollection.__identifier__]
+        ),
         required=False
     )
 
