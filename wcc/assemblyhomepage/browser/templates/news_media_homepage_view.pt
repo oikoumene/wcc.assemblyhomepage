@@ -19,35 +19,34 @@
   <metal:content-core define-macro="content-core">
 
 
-    <div tal:content="structure context/text"></div>
+      <div tal:content="structure context/text"></div>
 
-    <tal:block define="global first python:True"/>
-    <div class="assemblyhomepage-newslisting">
+      <div class="assemblyhomepage-newslisting">
+
+          <div tal:define="item view/featured_item"
+              tal:condition="item">
+              <h2><a tal:attributes="href item/absolute_url"
+                      tal:content="item/Title"></a></h2>
+
+              <table>
+                  <tr>
+                      <td style="width:200px;padding:5px">
+                          <img tal:define="scales nocall:item/@@featureimages;"
+                              tal:replace="structure python:scales.tag(scale='mini')"/>
+                      </td>
+                      <td style="padding:5px;" tal:content="item/Description">
+
+                      </td>
+                  </tr>
+              </table>
+
+          </div>
         <tal:r repeat="item view/news_items">
 
-            <div tal:condition="first">
-                <h2><a tal:attributes="href item/absolute_url"
-                    tal:content="item/Title"></a></h2>
-
-
-                <table>
-                    <tr>
-                        <td style="width:200px;padding:5px">
-                        <img tal:define="scales nocall:item/@@featureimages;"
-                            tal:replace="structure python:scales.tag(scale='mini')"/>
-                    </td>
-                    <td style="padding:5px;" tal:content="item/Description">
-
-                    </td>
-                    </tr>
-                </table>
-
-            </div>
-            <div tal:condition="not:first">
+            <div>
                 <h3><a tal:attributes="href item/absolute_url"
                     tal:content="item/Title"></a></h3>
             </div>
-            <tal:block define="global first python:False"/>
         </tal:r>
     </div>
 
