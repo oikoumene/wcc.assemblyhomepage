@@ -30,7 +30,7 @@ class Index(dexterity.DisplayForm):
         featured = self.featured_item()
         if featured:
             results = [i for i in results if i.UID != featured.UID()]
-        return [i.getObject() for i in results[:5]]
+        return [i.getObject() for i in results[:4]]
 
     def more_news_target(self):
         if self.context.more_news_target:

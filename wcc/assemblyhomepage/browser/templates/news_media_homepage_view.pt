@@ -9,7 +9,10 @@
       <metal:slot fill-slot="style_slot">
         <style>
             .assemblyhomepage-morenews {
-                            text-align:right;
+                text-align:right;
+            }
+            .assemblyhomepage-newsitem {
+                margin-top:10px;
             }
         </style>
       </metal:slot>
@@ -43,7 +46,7 @@
           </div>
         <tal:r repeat="item view/news_items">
 
-            <div>
+            <div class="assemblyhomepage-newsitem">
                 <h3><a tal:attributes="href item/absolute_url"
                     tal:content="item/Title"></a></h3>
             </div>
