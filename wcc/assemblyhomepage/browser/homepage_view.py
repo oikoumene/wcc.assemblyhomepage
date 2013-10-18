@@ -99,7 +99,7 @@ class Index(dexterity.DisplayForm):
     def more_news_target(self):
         if self.context.more_news_target:
             return self.context.more_news_target.to_object
-        return self.context.news_source.to_object
+        return self.context.more_news_target.to_object
 
     def display_mode(self):
         if self.context.video_source and not self.context.embed_html:
